@@ -1,0 +1,48 @@
+from posts.models import Post
+
+from posts.api.serializers import PostSerializer
+
+obj = Post.objects.all()
+obj = Post.objects.first()
+print(obj)
+obj.id
+obj.title
+
+
+now how to serializee the data in shell 
+
+obj_data = PostSerializer(obj)
+
+obj_data.data --->>> this will give the serialized data 
+return a dictionary // as json data
+
+
+now how to create data using serializer
+##
+data = {
+	"title":"yeah buddy",
+	"content":"new content",
+	"publish":"2019-2-12",
+}
+#
+new_item = PostSerializer(data = data)
+if new_item.is_valid():
+   new_item.save()
+else:
+   print(new_item.errors)
+#so this gives output that slug is reqd
+
+data = {
+	"title":"yeah buddy",
+	"content":"new content",
+	"publish":"2019-2-12",
+	"slug":"yeah-buddy",
+}	  
+new_item = PostSerializer(data = data)
+if new_item.is_valid():
+   new_item.save()
+else:
+   print(new_item.errors)
+
+
+now new_item.data will give serialized data as new_item is a post serilzed object

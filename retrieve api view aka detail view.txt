@@ -1,0 +1,35 @@
+retrive api view is almost same as list api view
+
+instead of getting a query set in case of list api view it gets a single object
+but works similar on the basis of the listapi view
+
+s0 now if api/posts/ give me all the posts now i want to add id to the /api/post/3
+to give me the exact view
+
+the basic procedure is just add a view in the views.py as 
+
+class PostDetailAPIView(RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+after this import this into the urls.py in api as from .views import PostDetailAPIView
+after this just add the url pattern for the same
+  url(r'^(?P<pk>\d+)/$',PostDetailAPIView.as_view(), name='detail'),
+  ###(?P<slug>[\w-]+)
+   so what if we wanted to change this to other slugs. means instead of adding pk at 	end of the link add any other field 
+  for doing this we can do the following        
+	url(r'^(?P<slug>[\w-]+)/$',PostDetailAPIView.as_view(), name='detail'),
+
+ it'll give an error postdetailapiview to be called with a keyword pk so we can make the follong change: istead of slug write pk above
+  like: url(r'^(?P<pk>[\w-]+)/$',PostDetailAPIView.as_view(), name='detail'),
+
+http://127.0.0.1:8000/api/posts/yeah-buddy/
+this wont give the details and the reason for this is because by default it is id 
+so we need to change the lookup field 
+so we can go to views and make this change 
+ class PostDetailAPIView(RetrieveAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+    lookup_field = 'slug'
+
+we can add some additional things inside the serilizer if want deatil view to have slightly diff look means we can shoowupp some fields in some and other in other

@@ -1,0 +1,25 @@
+from posts.models import Post
+
+from posts.api.serializers import PostSerializer
+
+
+obj = Post.objects.get(id=2) 
+obj
+
+// now with what cntent do u want to update the data 
+data = {
+	"title":"yeah buddy",
+	"content":"new content",
+	"publish":"2019-2-12",
+	"slug":"yeah-buddy",
+}
+//just pass the object as well in PostSerializer for update case
+new_item = PostDetailSerializer(obj,data = data)
+if new_item.is_valid(): 
+  new_item.save()
+else:
+  print(new_item.errors)
+
+
+//for deleting 
+obj.delete()

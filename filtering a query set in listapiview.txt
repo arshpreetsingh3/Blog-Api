@@ -1,0 +1,3 @@
+first we did query using a self made method called query_list under PostListAPIView
+
+but for the same thing we can use built in filters from rest_framework
